@@ -1,2 +1,3 @@
-# snacklinux-base
-SnackLinux base scripts
+# SnackLinux base scripts
+
+Base scripts that cover /etc and the installer
