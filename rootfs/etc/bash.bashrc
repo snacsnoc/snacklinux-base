@@ -14,3 +14,9 @@ PS1='[\[\033[01;32m\]\h\[\033[00m\]]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 # Yay colours
 alias ls='ls --color=auto'
+
+export LIBRARY_PATH=/lib:/usr/lib
+
+export C_INCLUDE_PATH=/include:/usr/include
+
+export CPLUS_INCLUDE_PATH=/include:/usr/include
