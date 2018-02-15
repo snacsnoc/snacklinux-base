@@ -20,3 +20,5 @@ export LIBRARY_PATH=/lib:/usr/lib
 export C_INCLUDE_PATH=/include:/usr/include
 
 export CPLUS_INCLUDE_PATH=/include:/usr/include
+
+export CPPFLAGS="-I/include -I/usr/include"
