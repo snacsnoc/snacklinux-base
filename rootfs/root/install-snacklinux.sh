@@ -164,6 +164,9 @@ mknod -m 644 dev/hdb b 3 64
 mknod -m 644 dev/sda  b 8 0
 mknod -m 644 dev/sda1 b 8 1
 mknod -m 644 dev/sda2 b 8 2
+mknod -m 644 dev/vda b 252 0
+mknod -m 644 dev/vda1 b 252 1
+mknod -m 644 dev/vda2 b 252 2
 mknod -m 644 dev/tty c 5 0
 mknod -m 644 dev/tty0 c 4 0
 mknod -m 644 dev/tty1 c 4 1 
@@ -211,7 +214,7 @@ cp /boot/bzImage $IMAGE_PATH/boot/bzImage
 echo "Writing lilo to the MBR"
 lilo -r $IMAGE_PATH  -M "$1"
 
-
+echo "Installing lilo relative to mount"
 #Install lilo relative to the mount
 lilo -r $IMAGE_PATH  
 
