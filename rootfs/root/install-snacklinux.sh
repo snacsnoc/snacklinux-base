@@ -21,7 +21,7 @@ if ! command -v lilo &> /dev/null; then
 fi
 
 if [ ! -d "/share/terminfo" ]; then
-    echo "Error: 'libncurses' is not installed. Please install with fbpkg: fbpkg install libncurses"
+    echo "Error: 'libncurses' is not installed. Please install with fbpkg: fbpkg install ncurses"
     exit 1   
 fi
 
@@ -96,7 +96,7 @@ n
 p
 1
 
-+4M
++10M
 a
 1
 t
@@ -115,7 +115,7 @@ fdisk $1 < ./fdisk.in > /dev/null
   
 echo "Formatting $1"1
   
-mkdosfs "$1"1 > /dev/null 2>&1
+mkdosfs "${1}"1 > /dev/null 2>&1
 
 
 #Format the second partition
@@ -164,9 +164,9 @@ mknod -m 644 dev/hdb b 3 64
 mknod -m 644 dev/sda  b 8 0
 mknod -m 644 dev/sda1 b 8 1
 mknod -m 644 dev/sda2 b 8 2
-mknod -m 644 dev/vda b 252 0
-mknod -m 644 dev/vda1 b 252 1
-mknod -m 644 dev/vda2 b 252 2
+#mknod -m 644 dev/vda b 252 0
+#mknod -m 644 dev/vda1 b 252 1
+#mknod -m 644 dev/vda2 b 252 2
 mknod -m 644 dev/tty c 5 0
 mknod -m 644 dev/tty0 c 4 0
 mknod -m 644 dev/tty1 c 4 1 
@@ -195,7 +195,7 @@ cd ..
 
 #Create a lilo conf file so we can install lilo right away
 cat > $IMAGE_PATH/etc/lilo.conf <<EOF
-boot=$1
+boot=${1}
 prompt
 timeout=50
 lba32
@@ -203,7 +203,7 @@ default=snacklinux
 
 image=/boot/bzImage
 	label=snacklinux
-	root=$12
+	root=${1}2
 
 EOF
 
@@ -215,12 +215,11 @@ echo "Writing lilo to the MBR"
 lilo -r $IMAGE_PATH  -M "$1"
 
 echo "Installing lilo relative to mount"
-#Install lilo relative to the mount
 lilo -r $IMAGE_PATH  
 
 echo "Umounting $1"2
 umount "$1"2
-  
+echo "Removing temp path"  
 rm -rf $IMAGE_PATH
 
 echo "Done!"
