@@ -6,6 +6,9 @@
 # Mount for read and write
 /bin/mount -o remount,rw  /
 
+# Create /dev/pts directory for pseudo-terminal devices
+mkdir -p /dev/pts
+
 # Mount system devices from /etc/fstab.
 /bin/mount -a
 
