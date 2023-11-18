@@ -9,6 +9,41 @@ export TERMINFO=/share/terminfo
 # Set the mount path
 IMAGE_PATH=/root/snack_mnt
 
+# Check if required software is installed
+if ! command -v dialog &> /dev/null; then
+    echo "Error: 'dialog' is not installed. Please install with fbpkg: fbpkg install dialog"
+    exit 1
+fi
+
+if ! command -v lilo &> /dev/null; then
+    echo "Error: 'lilo' is not installed. Please install with fbpkg: fbpkg install lilo"
+    exit 1
+fi
+
+if [ ! -d "/share/terminfo" ]; then
+    echo "Error: 'libncurses' is not installed. Please install with fbpkg: fbpkg install libncurses"
+    exit 1   
+fi
+
+if [ ! -f "/boot/bzImage" ]; then
+    echo "Error: no kernel image found to copy, check /boot"
+    exit 1
+fi
+
+# Check parameter and path
+
+if [ "$#" == "0" ]; then
+  echo
+  echo "Usage: $0 DEVICE"
+  echo
+  echo "       DEVICE=/dev/hd[a-d] -> install SnackLinux on to hard disk"
+  echo "       DEVICE=/dev/sd[a-b] -> install SnackLinux on to hard disk"
+  echo
+  echo "  Ex: $0 /dev/hdc"
+  echo "      $0 /dev/sda"
+  echo
+  exit 0
+fi
 
 dialog --msgbox \
 "Welcome to SnackLinux.
@@ -33,20 +68,7 @@ done
 # in a separate script and then calling them.  That way we can avoid errors
 # easier.  I attempted to, but it became messy.
 
-# Check parameter and path
 
-if [ "$#" == "0" ]; then
-  echo
-  echo "Usage: $0 DEVICE"
-  echo
-  echo "       DEVICE=/dev/hd[a-d] -> install SnackLinux on to hard disk"
-  echo "       DEVICE=/dev/sd[a-b] -> install SnackLinux on to hard disk"
-  echo
-  echo "  Ex: $0 /dev/hdc"
-  echo "      $0 /dev/sda"
-  echo
-  exit 0
-fi
 
 # Create the image path if it doesn't exist
 
