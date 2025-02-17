@@ -8,7 +8,7 @@
 
 # Create /dev/pts directory for pseudo-terminal devices
 mkdir -p /dev/pts
-mkdir /dev/shm
+mkdir -p /dev/shm
 # Mount system devices from /etc/fstab.
 /bin/mount -a
 
